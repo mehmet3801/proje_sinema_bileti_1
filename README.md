@@ -1,0 +1,157 @@
+Merhaba ben Mehmet AKKOYUN Kastamonu Üniversitesi Bilgisayar Teknolojileri bölümünde 2. sınıf öğrencisiyim
+Sinema Otomasyonu Projes SQL kodları
+USE [master]
+GO
+/****** Object:  Database [sinemeBileti]    Script Date: 9.05.2025 22:05:31 ******/
+CREATE DATABASE [sinemeBileti]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'sinemeBileti', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\sinemeBileti.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'sinemeBileti_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\sinemeBileti_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [sinemeBileti] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [sinemeBileti].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [sinemeBileti] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [sinemeBileti] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [sinemeBileti] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [sinemeBileti] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [sinemeBileti] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET RECOVERY FULL 
+GO
+ALTER DATABASE [sinemeBileti] SET  MULTI_USER 
+GO
+ALTER DATABASE [sinemeBileti] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [sinemeBileti] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [sinemeBileti] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [sinemeBileti] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [sinemeBileti] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [sinemeBileti] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'sinemeBileti', N'ON'
+GO
+ALTER DATABASE [sinemeBileti] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [sinemeBileti] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+USE [sinemeBileti]
+GO
+/****** Object:  Table [dbo].[Fim_Bilgileri]    Script Date: 9.05.2025 22:05:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Fim_Bilgileri](
+	[filmId] [int] IDENTITY(1,1) NOT NULL,
+	[filmAdi] [varchar](50) NOT NULL,
+	[yonetmen] [varchar](50) NULL,
+	[filmTuru] [varchar](50) NULL,
+	[filmSuresi] [varchar](50) NULL,
+	[tarih] [varchar](50) NULL,
+	[yapimYili] [varchar](50) NULL,
+	[resim] [varchar](400) NULL,
+ CONSTRAINT [PK_Fim_Bilgileri] PRIMARY KEY CLUSTERED 
+(
+	[filmAdi] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Salon_bilgileri]    Script Date: 9.05.2025 22:05:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Salon_bilgileri](
+	[salonId] [int] IDENTITY(1,1) NOT NULL,
+	[salonAdi] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Salon_bilgileri] PRIMARY KEY CLUSTERED 
+(
+	[salonAdi] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Satis_Bilgileri]    Script Date: 9.05.2025 22:05:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Satis_Bilgileri](
+	[satisId] [int] IDENTITY(1,1) NOT NULL,
+	[koltukNo] [varchar](50) NULL,
+	[salonAdi] [varchar](50) NULL,
+	[filmAdi] [varchar](50) NULL,
+	[tarih] [varchar](50) NULL,
+	[saat] [varchar](50) NULL,
+	[ad] [varchar](50) NULL,
+	[soyad] [varchar](50) NULL,
+	[ucret] [varchar](50) NULL,
+	[tarih2] [varchar](50) NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Seans_Bilgileri]    Script Date: 9.05.2025 22:05:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Seans_Bilgileri](
+	[seansId] [int] NULL,
+	[filmAdi] [varchar](50) NULL,
+	[salonAdi] [varchar](50) NULL,
+	[tarih] [varchar](50) NULL,
+	[seans] [varchar](50) NULL
+) ON [PRIMARY]
+GO
+USE [master]
+GO
+ALTER DATABASE [sinemeBileti] SET  READ_WRITE 
+GO
